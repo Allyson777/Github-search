@@ -13,7 +13,7 @@ export default function Home() {
             setUserData(data);
             setError(null);
         } catch (err) {
-            setError(err.mensage);
+            setError(err.message);
             setUserData(null);
         }
     }
