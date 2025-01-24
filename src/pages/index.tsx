@@ -1,8 +1,24 @@
 import { useState } from "react"
 
 export default function Home() {
+
+    interface UserData {
+        avatar_url: string;
+        login: string;
+        name?: string;
+        created_at: string;
+        bio?: string;
+        public_repos: number;
+        follower: number;
+        following: number;
+        location?: string;
+        twitter_userName?: string;
+        blog?: string;
+    }
+
+
     const [Username, setUsername] = useState("");
-    const [userData, setUserData] = useState(null);
+    const [userData, setUserData] = useState<UserData | null>(null);
     const [error, setError] = useState(null);
 
     const handleSeach = async () => {
@@ -12,8 +28,7 @@ export default function Home() {
             const data = await response.json();
             setUserData(data);
             setError(null);
-        } catch (err) {
-
+        } catch {
             setUserData(null);
         }
     }
@@ -27,19 +42,19 @@ export default function Home() {
                 <h1 className="font-serif text-base font-light"></h1>
             </header>
             <div className="flex justify-between items-center w-full h-16 bg-card-box rounded-lg p-3 gap-4 shadow-xl">
-                <h1><span class="material-symbols-outlined">
+                <h1><span className="material-symbols-outlined">
                     search
                 </span></h1>
                 <input placeholder="Search GitHub username..." type="text" className="flex-1 h-full outline-none bg-transparent" value={Username} onChange={(e) => setUsername(e.target.value)} />
-                <button className="px-8 h-full bg-[#0079FE] rounded-lg " onClick={handleSeach}><h1 className="flex items-center"><span class="material-symbols-outlined">
+                <button className="px-8 h-full bg-[#0079FE] rounded-lg " onClick={handleSeach}><h1 className="flex items-center"><span className="material-symbols-outlined">
                     search
                 </span></h1></button>
             </div>
             {error && <p className="text-red-500">{error}</p>}
             {userData && (
                 < div className="flex w-full h-96 bg-card-box rounded-xl p-12 shadow-xl gap-8  ">
-                    <div className="justify-center w-1/4 h-full  ">
-                        <img className="w-28 h-28 mt-10" src={userData.avatar_url} alt={userData.login} />
+                    <div className="justify-center w-1/3 h-full  ">
+                        <img className="w-64 h-46 mt-10 rounded-lg" src={userData.avatar_url} alt={userData.login} />
                     </div>
                     <div className="flex flex-col w-full h-full">
                         <div className="flex w-full justify-between">
